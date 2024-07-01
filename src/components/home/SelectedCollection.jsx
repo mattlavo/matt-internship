@@ -13,61 +13,70 @@ export default function SelectedCollection() {
 
   const fetchCollection = async () => {
     try {
-      const response = await axios.get('https://remote-internship-api-production.up.railway.app/selectedCollection')
+      const response = await axios.get(
+        "https://remote-internship-api-production.up.railway.app/selectedCollection"
+      );
       setSelectedCollection(response.data.data);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   useEffect(() => {
     fetchCollection();
-  }, [])
-
+  }, []);
 
   return (
-    <> 
-      {loading ? (
-        <Skeleton width="100%" height="500px" borderRadius="0" />
-      ) : (
+    <>
       <header>
         <div className="selected-collection">
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            poster={selectedCollection.thumbnail}
-            src={selectedCollection.videoLink}
-            className="selected-collection__bg"
-          />
-          <div className="selected-collection__description">
-            <img
-              src={selectedCollection.logo}
-              alt=""
-              className="selected-collection__logo"
-            />
-            <h1 className="selected-collection__title">
-              {selectedCollection.title}
-            </h1>
-            <Link to={'/user'} className="selected-collection__author">
-              By {selectedCollection.creator}
-              <img
-                src={VerifiedIcon}
-                className="selected-collection__author__verified"
+          {loading ? (
+            <Skeleton width="100%" height="100%" border-radius="0px" />
+          ) : (
+            <>
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                poster={selectedCollection.thumbnail}
+                src={selectedCollection.videoLink}
+                className="selected-collection__bg"
               />
-            </Link>
-            <div className="selected-collection__details">{selectedCollection.amountOfItems} items · {selectedCollection.floorPrice} ETH</div>
-            <Link to={`/collection/${selectedCollection.collectionId}`} className="selected-collection__button">
-              <div className="green-pulse"></div>
-              View Collection
-            </Link>
-          </div>
+              <div className="selected-collection__description">
+                <img
+                  src={selectedCollection.logo}
+                  alt=""
+                  className="selected-collection__logo"
+                />
+                <h1 className="selected-collection__title">
+                  {selectedCollection.title}
+                </h1>
+                <Link to={"/user"} className="selected-collection__author">
+                  By {selectedCollection.creator}
+                  <img
+                    src={VerifiedIcon}
+                    className="selected-collection__author__verified"
+                  />
+                </Link>
+                <div className="selected-collection__details">
+                  {selectedCollection.amountOfItems} items ·{" "}
+                  {selectedCollection.floorPrice} ETH
+                </div>
+                <Link
+                  to={`/collection/${selectedCollection.collectionId}`}
+                  className="selected-collection__button"
+                >
+                  <div className="green-pulse"></div>
+                  View Collection
+                </Link>
+              </div>
+            </>
+          )}
         </div>
       </header>
-      )}
     </>
   );
 }
