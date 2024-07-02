@@ -51,43 +51,82 @@ export default function Trending() {
                 <div className="trending-column__header__price">Volume</div>
               </div>
               <div className="trending-column__body">
-                {trending.slice(0, 5).map((nft, index) => (
-                  <Link
-                    to={`/collection/${nft.collectionId}`}
-                    key={index}
-                    className="trending-collection"
-                  >
-                    <div className="trending-collection__rank">
-                      {trending[index]?.rank}
-                    </div>
-                    <div className="trending-collection__collection">
-                      <figure className="trending-collection__img__wrapper">
-                        <img
-                          src={nft?.imageLink}
-                          alt=""
-                          className="trending-collection__img"
-                        />
-                      </figure>
-                      <div className="trending-collection__name">
-                        {nft?.title}
+                {loading
+                  ? new Array(5).fill(0).map((_, index) => (
+                      <div key={index} className="trending-collection">
+                        <div className="trending-collection__rank">
+                          {index + 1}
+                        </div>
+                        <div className="trending-collection__collection">
+                          <figure className="trending-collection__img__wrapper">
+                            <Skeleton
+                              width="100%"
+                              height="100%"
+                              borderRadius="4px"
+                              className="trending-collection__img"
+                            />
+                          </figure>
+                          <div className="trending-collection__name">
+                            <Skeleton
+                              width="130px"
+                              height="18px"
+                              borderRadius="4px"
+                            />
+                          </div>
+                        </div>
+                        <div className="trending-collection__price">
+                          <Skeleton
+                            width="70px"
+                            height="18px"
+                            borderRadius="4px"
+                          />
+                        </div>
+                        <div className="trending-collection__volume">
+                          <Skeleton
+                            width="70px"
+                            height="18px"
+                            borderRadius="4px"
+                          />
+                        </div>
                       </div>
-                      <img
-                        src={VerifiedIcon}
-                        className="trending-collection__verified"
-                      />
-                    </div>
-                    <div className="trending-collection__price">
-                      <span className="trending-collection__price__span">
-                        {nft?.floor} ETH
-                      </span>
-                    </div>
-                    <div className="trending-collection__volume">
-                      <span className="trending-collection__volume__span">
-                        {nft?.totalVolume} ETH
-                      </span>
-                    </div>
-                  </Link>
-                ))}
+                    ))
+                  : trending.slice(0, 5).map((nft, index) => (
+                      <Link
+                        to={`/collection/${nft.collectionId}`}
+                        key={index}
+                        className="trending-collection"
+                      >
+                        <div className="trending-collection__rank">
+                          {trending[index]?.rank}
+                        </div>
+                        <div className="trending-collection__collection">
+                          <figure className="trending-collection__img__wrapper">
+                            <img
+                              src={nft?.imageLink}
+                              alt=""
+                              className="trending-collection__img"
+                            />
+                          </figure>
+                          <div className="trending-collection__name">
+                            {nft?.title}
+                          </div>
+                          <img
+                            src={VerifiedIcon}
+                            className="trending-collection__verified"
+                          />
+                        </div>
+                        <div className="trending-collection__price">
+                          <span className="trending-collection__price__span">
+                            {parseFloat(nft?.floor).toFixed(2)} ETH
+                          </span>
+                        </div>
+                        <div className="trending-collection__volume">
+                          <span className="trending-collection__volume__span">
+                            {nft?.totalVolume} ETH
+                          </span>
+                        </div>
+                      </Link>
+                    ))}
               </div>
             </div>
             <div className="trending-column">
@@ -114,29 +153,30 @@ export default function Trending() {
                               width="100%"
                               height="100%"
                               borderRadius="4px"
+                              className="trending-collection__img"
                             />
                           </figure>
                           <div className="trending-collection__name">
                             <Skeleton
-                              width=""
+                              width="130px"
                               height="18px"
                               borderRadius="4px"
                             />
                           </div>
-                          <div className="trending-collection__price">
-                            <Skeleton
-                              width="70px"
-                              height="18px"
-                              borderRadius="4px"
-                            />
-                          </div>
-                          <div className="trending-collection__volume">
-                            <Skeleton
-                              width="70px"
-                              height="18px"
-                              borderRadius="4px"
-                            />
-                          </div>
+                        </div>
+                        <div className="trending-collection__price">
+                          <Skeleton
+                            width="70px"
+                            height="18px"
+                            borderRadius="4px"
+                          />
+                        </div>
+                        <div className="trending-collection__volume">
+                          <Skeleton
+                            width="70px"
+                            height="18px"
+                            borderRadius="4px"
+                          />
                         </div>
                       </div>
                     ))
@@ -167,7 +207,7 @@ export default function Trending() {
                         </div>
                         <div className="trending-collection__price">
                           <span className="trending-collection__price__span">
-                            {nft?.floor} ETH
+                            {parseFloat(nft?.floor).toFixed(2)} ETH
                           </span>
                         </div>
                         <div className="trending-collection__volume">
