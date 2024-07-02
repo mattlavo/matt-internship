@@ -26,7 +26,6 @@ export default function Trending() {
     fetchTrending();
   }, []);
 
-  // trending.slice(5,10).map((item) => console.log(item))
 
   return (
     <section id="trending">
