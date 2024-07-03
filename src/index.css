@@ -522,9 +522,9 @@ html {
 
 .collection {
   width: 100%;
-  border-radius: 12px;
+  border-radius: 12px !important;
   overflow: hidden;
-  border: 1px solid #dddddd;
+  border: 1px solid #dddddd !important;
   text-decoration: none;
   color: black;
   display: block;
@@ -581,6 +581,22 @@ html {
   font-size: 16px;
   font-weight: 600;
   line-height: 24px;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  background-color: white !important;
+  color: black;
+  font-size: 600px;
+  border: 1px solid whitesmoke;
+  font-size: 12px;
+}
+
+.swiper {
+  --swiper-navigation-size: 24px;
 }
 
 /* Footer */
@@ -818,6 +834,7 @@ footer {
   COLLECTION PAGE
 
 */
+
 
 #collection-header {
   height: 340px;
