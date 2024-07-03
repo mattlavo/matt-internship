@@ -10,6 +10,7 @@ import Skeleton from "../ui/Skeleton";
 export default function SelectedCollection() {
   const [loading, setLoading] = useState(true);
   const [selectedCollection, setSelectedCollection] = useState([]);
+  
 
   const fetchCollection = async () => {
     try {
