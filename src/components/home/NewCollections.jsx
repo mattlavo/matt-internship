@@ -8,6 +8,7 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { Navigation, Pagination } from "swiper/modules";
 import Skeleton from "../ui/Skeleton";
+import CollectionCard from "../collection/CollectionCard";
 
 export default function NewCollections() {
   // https://remote-internship-api-production.up.railway.app/newCollections
@@ -77,16 +78,13 @@ export default function NewCollections() {
               {loading
                 ? new Array(8).fill(0).map((collection, index) => (
                     <SwiperSlide>
-                      <Link
+                      <CollectionCard loading={true} collection={collection} index={index} />
+                      {/* <Link
                         to={`/collection/${collection.collectionId}`}
                         key={index}
                         className="collection"
                       >
-                        {/* <img
-                          src={collection.imageLink}
-                          alt=""
-                          className="collection__img"
-                        /> */}
+                        
                         <div className="collection__img">
                           <Skeleton
                             width="100%"
@@ -95,9 +93,7 @@ export default function NewCollections() {
                           />
                         </div>
                         <div className="collection__info">
-                          {/* <h3 className="collection__name">
-                            {collection.title}
-                          </h3> */}
+                          
                           <div className="collection__stats">
                             <div className="collection__stat">
                               <span className="collection__stat__label">
@@ -117,13 +113,14 @@ export default function NewCollections() {
                             </div>
                           </div>
                         </div>
-                      </Link>
+                      </Link> */}
                     </SwiperSlide>
                   ))
                 : newCollections.map((collection, index) => (
                     <div key={index} className="collection-column">
                       <SwiperSlide>
-                        <Link
+                        <CollectionCard loading={false} collection={collection} index={index} />
+                        {/* <Link
                           to={`/collection/${collection.collectionId}`}
                           key={index}
                           className="collection"
@@ -156,7 +153,7 @@ export default function NewCollections() {
                               </div>
                             </div>
                           </div>
-                        </Link>
+                        </Link> */}
                       </SwiperSlide>
                     </div>
                   ))}
