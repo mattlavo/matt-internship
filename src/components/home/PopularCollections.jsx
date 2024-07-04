@@ -8,6 +8,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
+import CollectionCard from "../collection/CollectionCard";
 
 export default function PopularCollections() {
   const [popularCollections, setPopularCollections] = useState([]);
@@ -31,7 +32,6 @@ export default function PopularCollections() {
   useEffect(() => {
     fetchPopularCollections();
   }, []);
-
 
   return (
     <section id="popular-collections">
@@ -74,10 +74,10 @@ export default function PopularCollections() {
           >
             <div className="popular-collections__body">
               {loading
-                ? new Array(6).fill(0).map((_, index) => (
-                  <div className="collection-column">
+                ? new Array(6).fill(0).map((collection, index) => (
+                    <div className="collection-column">
                       <SwiperSlide>
-                        <Link
+                        {/* <Link
                           to="/collection"
                           key={index}
                           className="collection"
@@ -109,14 +109,24 @@ export default function PopularCollections() {
                               </div>
                             </div>
                           </div>
-                        </Link>
+                        </Link> */}
+                        <CollectionCard
+                          loading={true}
+                          collection={collection}
+                          index={index}
+                        />
                       </SwiperSlide>
                     </div>
                   ))
                 : popularCollections.map((collection, index) => (
-                  <div className="collection-column">
+                    <div className="collection-column">
                       <SwiperSlide>
-                        <Link to={`/collection/${collection.collectionId}`} key={index} className="collection">
+                        <CollectionCard
+                          loading={false}
+                          collection={collection}
+                          index={index}
+                        />
+                        {/* <Link to={`/collection/${collection.collectionId}`} key={index} className="collection">
                           <img
                             src={collection.imageLink}
                             alt=""
@@ -145,7 +155,7 @@ export default function PopularCollections() {
                               </div>
                             </div>
                           </div>
-                        </Link>
+                        </Link> */}
                       </SwiperSlide>
                     </div>
                   ))}
