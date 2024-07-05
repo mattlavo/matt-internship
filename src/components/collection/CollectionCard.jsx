@@ -3,26 +3,12 @@ import { Link } from "react-router-dom";
 import Skeleton from "../ui/Skeleton";
 
 function CollectionCard({ loading, collection, index }) {
-
-
   return loading ? (
-    <Link
-      to={`/collection/${collection.collectionId}`}
-      key={index}
-      className="collection"
-    >
-      {/* <img
-                          src={collection.imageLink}
-                          alt=""
-                          className="collection__img"
-                        /> */}
+    <Link to={`/collection`} key={index} className="collection">
       <div className="collection__img">
         <Skeleton width="100%" height="100%" borderRadius={0} />
       </div>
       <div className="collection__info">
-        {/* <h3 className="collection__name">
-                            {collection.title}
-                          </h3> */}
         <div className="collection__stats">
           <div className="collection__stat">
             <span className="collection__stat__label">
@@ -44,8 +30,16 @@ function CollectionCard({ loading, collection, index }) {
       </div>
     </Link>
   ) : (
-    <Link to="/collection" key={index} className="collection">
-      <img src={collection.logo || collection.imageLink} alt="" className="collection__img" />
+    <Link
+      to={`/collection/${collection.collectionId}`}
+      key={index}
+      className="collection"
+    >
+      <img
+        src={collection.logo || collection.imageLink}
+        alt=""
+        className="collection__img"
+      />
       <div className="collection__info">
         <h3 className="collection__name">{collection.title}</h3>
         <div className="collection__stats">
