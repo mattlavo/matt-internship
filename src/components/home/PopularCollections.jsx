@@ -124,6 +124,7 @@ export default function PopularCollections() {
                         <CollectionCard
                           loading={false}
                           collection={collection}
+                          link={`/collection/${collection?.collectionId}`}
                           index={index}
                         />
                         {/* <Link to={`/collection/${collection.collectionId}`} key={index} className="collection">

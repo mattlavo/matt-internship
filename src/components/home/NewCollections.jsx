@@ -78,7 +78,7 @@ export default function NewCollections() {
               {loading
                 ? new Array(8).fill(0).map((collection, index) => (
                     <SwiperSlide>
-                      <CollectionCard loading={true} collection={collection} index={index} />
+                      <CollectionCard loading={true} collection={collection} link="collection" index={index} />
                       {/* <Link
                         to={`/collection/${collection.collectionId}`}
                         key={index}
@@ -119,7 +119,7 @@ export default function NewCollections() {
                 : newCollections.map((collection, index) => (
                     <div key={index} className="collection-column">
                       <SwiperSlide>
-                        <CollectionCard loading={false} collection={collection} index={index} />
+                        <CollectionCard loading={false} collection={collection} link={`/collection/${collection?.collectionId}`} index={index} />
                         {/* <Link
                           to={`/collection/${collection.collectionId}`}
                           key={index}
