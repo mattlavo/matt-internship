@@ -1,46 +1,110 @@
 import { faEthereum } from "@fortawesome/free-brands-svg-icons";
 import { faShoppingBag } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import Skeleton from "../components/ui/Skeleton";
 
 export default function UserPage() {
+  const { id } = useParams();
+  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState({});
+  const [itemsLength, setItemsLength] = useState(12)
+  const [filteredNFTS, setFilteredNFTS] = useState([])
+  const [filter, setFilter] = useState('Default');
+  
+
+  const fetchUser = async () => {
+    try {
+      const { data: response } = await axios.get(
+        `https://remote-internship-api-production.up.railway.app/user/${id}`
+      );
+      setUser(response.data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     window.scrollTo(0, 0);
+    fetchUser();
   }, []);
+
+  useEffect(() => {
+    if (user.items?.length > 0) {
+      let sortedNfts = [...user?.items];
+      if(filter === 'HIGH_TO_LOW') {
+        sortedNfts.sort((a, b) => b.price - a.price)
+      } else if(filter === 'LOW_TO_HIGH') {
+        sortedNfts.sort((a, b) => a.price - b.price);
+      }
+      setFilteredNFTS(sortedNfts);
+    }
+  }, [filter])
+
+  console.log(filter);
 
   return (
     <>
-      <header
-        style={{
-          backgroundImage: `url('https://i.seadn.io/s/raw/files/40c1f630bda7d55d859d9107cc86191f.png?auto=format&dpr=1&w=1920')`,
-        }}
-        id="user-header"
-      ></header>
+      {loading ? (
+        <header id="user-header">
+          <Skeleton width="100%" height="100%" borderRadius={0} />
+        </header>
+      ) : (
+        <header
+          style={{
+            backgroundImage: `url('${user?.imageLink}')`,
+          }}
+          id="user-header"
+        ></header>
+      )}
 
       <section id="user-info">
         <div className="row">
           <div className="user-info__wrapper">
             <figure className="user-info__img__wrapper">
-              <img
-                src="https://i.seadn.io/s/raw/files/55ada1658290f91266c83f075ea03233.png?auto=format&dpr=1&w=256"
-                alt=""
-                className="user-info__img"
-              />
-            </figure>
-            <h1 className="user-info__name">shilpixels</h1>
-            <div className="user-info__details">
-              <span className="user-info__wallet">
-                <FontAwesomeIcon
-                  icon={faEthereum}
-                  className="user-info__wallet__icon"
+              {loading ? (
+                <Skeleton width="100%" height="100%" />
+              ) : (
+                <img
+                  src={`${user?.profilePicture}`}
+                  alt=""
+                  className="user-info__img"
                 />
-                <span className="user-info__wallet__data">shilpixels.eth</span>
-              </span>
-              <span className="user-info__year">
-                <span className="user-info__year__data">
-                  Joined Feburary 2021
+              )}
+            </figure>
+            {loading ? (
+              <div className="user-info__name">
+                <Skeleton width="240px" height="16px" borderRadius={4} />
+              </div>
+            ) : (
+              <h1 className="user-info__name">{user?.name}</h1>
+            )}
+            <div className="user-info__details">
+              {loading ? (
+                <Skeleton width="300px" height="16px" borderRadius={4} />
+              ) : (
+                <span className="user-info__wallet">
+                  <FontAwesomeIcon
+                    icon={faEthereum}
+                    className="user-info__wallet__icon"
+                  />
+                  <span className="user-info__wallet__data">
+                    {user?.walletCode}
+                  </span>
                 </span>
+              )}
+              <span className="user-info__year">
+                {loading ? (
+                  <Skeleton width="120px" height="16px" borderRadius={4} />
+                ) : (
+                  <span className="user-info__year__data">
+                    Joined {user?.creationDate}
+                  </span>
+                )}
               </span>
             </div>
           </div>
@@ -51,30 +115,54 @@ export default function UserPage() {
         <div className="row user-items__row">
           <div className="user-items__header">
             <div className="user-items__header__left">
-              <span className="user-items__header__text">163 items</span>
+              {loading ? (
+                <Skeleton width="160px" height="16px" borderRadius={4} />
+              ) : (
+                <span className="user-items__header__text">{user?.items?.length} items</span>
+              )}
             </div>
-            <select className="user-items__header__sort">
-              <option value="">Recently purchased</option>
-              <option value="">Price high to low</option>
-              <option value="">Price low to high</option>
+            <select onChange={(e) => setFilter(e.target.value)} className="user-items__header__sort">
+              <option value="Default">Recently purchased</option>
+              <option value="HIGH_TO_LOW">Price high to low</option>
+              <option value="LOW_TO_HIGH">Price low to high</option>
             </select>
           </div>
           <div className="user-items__body">
-            {new Array(10).fill(0).map((_, index) => (
+            {
+              loading ? new Array(10).fill(0).map((_, index) => (
               <div className="item-column" key={index}>
                 <Link to={"/item"} className="item">
                   <figure className="item__img__wrapper">
+                    <Skeleton width="100%" height="100%" borderRadius={0} />
+                  </figure>
+                  <div className="item__details">
+                    <span className="item__details__name">
+                      <Skeleton width="80px" height="16px" borderRadius={4} />
+                    </span>
+                    <span className="item__details__price">
+                      <Skeleton width="48px" height="16px" borderRadius={4} />
+                    </span>
+                    <span className="item__details__last-sale">
+                      <Skeleton width="120px" height="16px" borderRadius={4} />
+                    </span>
+                  </div>
+                </Link>
+              </div>
+            )) : (filteredNFTS.length > 0 ? filteredNFTS.slice(0, itemsLength) : user.items.slice(0, itemsLength)).map((item, index)=> (
+              <div className="item-column" key={index}>
+                <Link to={`/item/${item.itemId}`} className="item">
+                  <figure className="item__img__wrapper">
                     <img
-                      src="https://i.seadn.io/gcs/files/0a085499e0f3800321618af356c5d36b.png?auto=format&dpr=1&w=384"
+                      src={`${item?.imageLink}`}
                       alt=""
                       className="item__img"
                     />
                   </figure>
                   <div className="item__details">
-                    <span className="item__details__name">Meebit #0001</span>
-                    <span className="item__details__price">0.98 ETH</span>
+                    <span className="item__details__name">{item?.title}</span>
+                    <span className="item__details__price">{item?.price} ETH</span>
                     <span className="item__details__last-sale">
-                      Last sale: 7.45 ETH
+                      Last sale: {item?.lastSale} ETH
                     </span>
                   </div>
                   <a className="item__see-more" href="#">
@@ -88,7 +176,7 @@ export default function UserPage() {
             ))}
           </div>
         </div>
-        <button className="collection-page__button">Load more</button>
+        {user.items?.length > itemsLength && <button className="collection-page__button" onClick={() => setItemsLength(prev => prev + 6)}>Load more</button>}
       </section>
     </>
   );
