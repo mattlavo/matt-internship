@@ -181,7 +181,7 @@ export default function Trending() {
                     ))
                   : trending.slice(5, 10).map((nft, index) => (
                       <Link
-                        to={"/collection"}
+                        to={`/collection/${nft?.collectionId}`}
                         key={index}
                         className="trending-collection"
                       >

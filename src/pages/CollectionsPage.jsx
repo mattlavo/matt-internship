@@ -38,6 +38,7 @@ export default function CollectionsPage() {
                   <CollectionCard
                     loading={true}
                     collection={collection}
+                    link='collection'
                     index={index}
                   />
                 </div>
@@ -47,6 +48,7 @@ export default function CollectionsPage() {
                   <CollectionCard
                     loading={false}
                     collection={collection}
+                    link={`/collection/${collection.id}`}
                     index={index}
                   />
                 </div>

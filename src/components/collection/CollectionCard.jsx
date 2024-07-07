@@ -2,9 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Skeleton from "../ui/Skeleton";
 
-function CollectionCard({ loading, collection, index }) {
+function CollectionCard({ loading, collection, link, index }) {
+
+  console.log(collection)
+
   return loading ? (
-    <Link to={`/collection`} key={index} className="collection">
+    <Link to={`/collection/`} key={index} className="collection">
       <div className="collection__img">
         <Skeleton width="100%" height="100%" borderRadius={0} />
       </div>
@@ -31,7 +34,7 @@ function CollectionCard({ loading, collection, index }) {
     </Link>
   ) : (
     <Link
-      to={`/collection/${collection.collectionId}`}
+      to={link}
       key={index}
       className="collection"
     >
