@@ -28,7 +28,7 @@ export default function Trending() {
 
 
   return (
-    <section id="trending">
+    <section id="trending" data-aos="fade-up">
       <div className="container">
         <div className="row trending__row">
           <div className="trending__header">
