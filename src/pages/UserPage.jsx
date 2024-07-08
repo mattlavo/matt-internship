@@ -45,7 +45,6 @@ export default function UserPage() {
     }
   }, [filter])
 
-  console.log(filter);
 
   return (
     <>

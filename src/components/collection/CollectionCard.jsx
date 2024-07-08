@@ -4,7 +4,6 @@ import Skeleton from "../ui/Skeleton";
 
 function CollectionCard({ loading, collection, link, index }) {
 
-  console.log(collection)
 
   return loading ? (
     <Link to={`/collection/`} key={index} className="collection">

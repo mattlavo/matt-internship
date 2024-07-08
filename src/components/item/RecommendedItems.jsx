@@ -31,7 +31,6 @@ export default function RecommendedItems({ nft }) {
     fetchCollection();
   }, []);
 
-  console.log(nft);
 
   return (
     <section id="recommended-items">
