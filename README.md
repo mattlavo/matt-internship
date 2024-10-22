@@ -1,8 +1,8 @@
-# HollywoodAI - Movie Summary AI Application
+# Everest NFT Marketplace - NFT Marketplace Application
 
-<img width="1440" alt="HollywoodAI Image" src="https://i.postimg.cc/vHTkwZz3/image.png">
+<img width="1440" alt="Everst NFT Marketplace Image" src="https://i.postimg.cc/NFHXRTtd/image.png">
 
-Developed and deployed a user-friendly platform for AI-powered film summaries, achieving a 95% satisfaction rate based on feedback on accuracy and readability, using Next.js. TypeScript, Firebase.
+Transformed a static single-page application into an interactive UI with animations, transitions, and carousels, utilising Axios for dynamic data representation. Employed Git for version control and collaboration.
 
 ## Install Packages
 
@@ -10,16 +10,6 @@ Developed and deployed a user-friendly platform for AI-powered film summaries, a
 npm i
 ```
 
-## Setup .env file
-
-```bash
-NEXT_PUBLIC_FIREBASE_API_KEY=
-NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=
-NEXT_PUBLIC_FIREBASE_PROJECT_ID=
-NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=
-NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=
-NEXT_PUBLIC_FIREBASE_APP_ID=
-```
 ## Start the app
 
 ```bash
